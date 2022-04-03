@@ -5,9 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>Redirect</title>
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
@@ -45,8 +43,15 @@
         var language = "en";
         var url = "";
         var ip = "";
-        var ip_api = "http://api.ipapi.com/check?access_key=b614157a323f2f9fa33c752efde57b5e&format=1";
-        $.getJSON(ip_api, function(data) {
+        var ip_api = "https://ipapi.co/json/";
+        var data;
+        try {
+            var xml = new XMLHttpRequest();
+            xml.open("GET", ip_api, false);
+            xml.send();
+            data = JSON.parse(xml.responseText);
+            console.log(data);
+            // data = data;
             console.log(data.country_code);
             countryCode = data.country_code;
             for (let i = 0; i < langCodes.length; i++) {
@@ -60,7 +65,11 @@
                 }
             }
             console.log(language);
-        });
+        } catch (e) {
+            if (e.message.includes(`Failed to execute 'send'`)) {
+                window.location.href = './en/';
+            }
+        }
     </script>
 </body>
 
