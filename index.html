@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirect</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <script>
+        var langCodes = [
+            "en",
+            "pt",
+            "de",
+            "fr",
+            "jp",
+            "ru",
+            "ms",
+            "th",
+            "vi",
+            "ko",
+            "fa",
+            "zh"
+        ];
+        var langs = [
+            ["AU", "BZ", "CA", "CB", "GB", "IE", "JM", "NZ", "PH", "TT", "US", "ZA", "ZW"],
+            ["BR", "CL", "CO", "EC", "ES", "FR", "GT", "HN", "MX", "NI", "PA", "PE", "PR", "PY", "SV", "UY", "VE"],
+            ["AT", "BE", "CH", "DE", "DK", "FI", "GR", "LU", "NL", "PL", "SE", "SI", "SK"],
+            ["BE", "CA", "CH", "FR", "LU", "MC", "NL", "PT", "RE", "SN", "TN"],
+            ["JP"],
+            ["RU"],
+            ["MY"],
+            ["TH"],
+            ["VN"],
+            ["KR"],
+            ["AF", "IR", "IQ", "IL", "KZ", "KG", "TJ", "TM", "UZ", "AF", "IR", "IQ", "IL", "KZ", "KG", "TJ", "TM", "UZ"],
+            ["CN", "HK", "MO", "TW"]
+        ];
+        var countryCode = "";
+        var language = "en";
+        var url = "";
+        var ip = "";
+        var ip_api = "http://api.ipapi.com/check?access_key=b614157a323f2f9fa33c752efde57b5e&format=1";
+        $.getJSON(ip_api, function(data) {
+            console.log(data.country_code);
+            countryCode = data.country_code;
+            for (let i = 0; i < langCodes.length; i++) {
+                if (langs[i].includes(countryCode)) {
+                    language = langCodes[i];
+                    debugger;
+                    url = "./" + language + "/";
+                    console.log(url);
+                    window.location.href = url;
+                    break;
+                }
+            }
+            console.log(language);
+        });
+    </script>
+</body>
+
+</html>
